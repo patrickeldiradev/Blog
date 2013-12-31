@@ -29,7 +29,11 @@ class Post extends Model
     {
         return $this->belongsTo(User::class);
     }
-    public function getBriefAttribute()
+
+    /**
+     * @return string
+     */
+    public function getBriefAttribute(): string
     {
         return Str::limit($this->description, $limit = 30, $end = '...');
     }
