@@ -16,7 +16,7 @@ class PostController extends Controller
     {
         $posts = Post::paginate();
 
-        return view('home', compact('posts'));
+        return view('posts.index', compact('posts'));
     }
 
     /**
@@ -24,19 +24,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function show(Post $post)
     {
-        //
+        return view('posts.show', compact('post'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 }
