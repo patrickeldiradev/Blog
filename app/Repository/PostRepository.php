@@ -2,19 +2,35 @@
 
 namespace App\Repository;
 
-use App\DTO\AbstractTransfer;
 use App\DTO\PostTransfer;
-use App\DTO\UserTransfer;
+use App\Mapper\PostMapper;
 use App\Models\Post;
 use Illuminate\Support\Collection;
-use Illuminate\Database\Eloquent\Model;
 
 class PostRepository
 {
-
+    /**
+     * @param int $id
+     * @return PostTransfer
+     */
     public function getPostById(int $id): PostTransfer
     {
-        return $this->mapToItemTransfer(Post::findOrfail($id));
+        $postModel =  Post::findOrfail($id);
+        $postMapper = new PostMapper([
+            'id' => $postModel->id,
+            'title' => $postModel->title,
+            'description' => $postModel->description,
+            'brief' => $postModel->description,
+            'publication_date' => $postModel->publication_date,
+            'user' => [
+                'id' => $postModel->user->id,
+                'name' => $postModel->user->name,
+                'email' => $postModel->user->email,
+                'type' => $postModel->user->type,
+            ],
+        ]);
+
+        return $postMapper->mapToTransfer();
     }
     /**
      * @return Collection
@@ -48,38 +64,20 @@ class PostRepository
     protected function mapToCollectionTransfer(Collection $collection): Collection
     {
         return $collection->collect()->map(function ($item) {
-            return $this->mapToItemTransfer($item);
+            $postMapper = new PostMapper([
+                'id' => $item->id,
+                'title' => $item->title,
+                'description' => $item->description,
+                'brief' => $item->description,
+                'publication_date' => $item->publication_date,
+                'user' => [
+                    'id' => $item->user->id,
+                    'name' => $item->user->name,
+                    'email' => $item->user->email,
+                    'type' => $item->user->type,
+                ],
+            ]);
+            return $postMapper->mapToTransfer();
         });
-    }
-
-    /**
-     * @param Model $item
-     * @return AbstractTransfer
-     */
-    protected function mapToItemTransfer(Model $item): AbstractTransfer
-    {
-        $postTransfer = new PostTransfer();
-        $postTransfer->setId($item->id);
-        $postTransfer->setTitle($item->title);
-        $postTransfer->setDescription($item->description);
-        $postTransfer->setBrief($item->brief);
-        $postTransfer->setPublicationDate($item->publication_date);
-        $postTransfer->setUserTransfer($this->createUserTransfer($item->user));
-
-        return $postTransfer;
-    }
-
-    /**
-     * @return UserTransfer
-     */
-    protected function createUserTransfer(Model $user): UserTransfer
-    {
-        $userTransfer = new UserTransfer();
-        $userTransfer->setId($user->id);
-        $userTransfer->setName($user->name);
-        $userTransfer->setEmail($user->email);
-        $userTransfer->setType($user->getType());
-
-        return $userTransfer;
     }
 }

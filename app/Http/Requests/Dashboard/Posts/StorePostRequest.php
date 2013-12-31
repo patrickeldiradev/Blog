@@ -3,7 +3,7 @@
 namespace App\Http\Requests\Dashboard\Posts;
 
 use App\DTO\PostTransfer;
-use App\DTO\UserTransfer;
+use App\Mapper\PostMapper;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StorePostRequest extends FormRequest
@@ -37,26 +37,18 @@ class StorePostRequest extends FormRequest
      */
     public function getRequestDataTransfer(): PostTransfer
     {
-        $postTransfer = new PostTransfer();
-        $postTransfer->setTitle($this->input('title'));
-        $postTransfer->setDescription($this->input('description'));
-        $postTransfer->setPublicationDate($this->input('publication_date'));
-        $postTransfer->setUserTransfer($this->createUserTransfer());
+        $postMapper = new PostMapper([
+            'title' => $this->input('title'),
+            'description' => $this->input('description'),
+            'publication_date' => $this->input('publication_date'),
+            'user' => [
+                'id' => auth()->user()->id,
+                'name' => auth()->user()->name,
+                'email' => auth()->user()->email,
+                'type' => auth()->user()->type,
+            ],
+        ]);
 
-        return $postTransfer;
-    }
-
-    /**
-     * @return UserTransfer
-     */
-    protected function createUserTransfer(): UserTransfer
-    {
-        $userTransfer = new UserTransfer();
-        $userTransfer->setId(auth()->user()->id);
-        $userTransfer->setName(auth()->user()->name);
-        $userTransfer->setEmail(auth()->user()->email);
-        $userTransfer->setType(auth()->user()->getType());
-
-        return $userTransfer;
+        return $postMapper->mapToTransfer();
     }
 }

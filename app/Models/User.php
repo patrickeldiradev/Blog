@@ -83,12 +83,4 @@ class User extends Authenticatable
     {
         return $this->hasMany(Post::class);
     }
-
-    public function getType()
-    {
-        if (! in_array($this->type, [1,2]))
-            throw new \Exception('User role not found.');
-
-        return $this->type == 1 ? 'user' : 'admin';
-    }
 }
