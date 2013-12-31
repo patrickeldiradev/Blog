@@ -17,12 +17,20 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('email')->unique();
-            $table->tinyInteger('type')->default('1');
+            $table->tinyInteger('type')->default(1);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
         });
+
+        \App\Models\User::create([
+            'id' => 1,
+            'name' => 'Admin',
+            'email' => 'admin@blog.com',
+            'type' => 2,
+            'password' => \Illuminate\Support\Facades\Hash::make('password'),
+        ]);
     }
 
     /**

@@ -4,10 +4,9 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\Posts\IndexPostsRequest;
-use App\Models\Post;
 use App\Repository\PostRepository;
 
-use Illuminate\Pipeline\Pipeline;
+use App\Services\PostSQService;
 
 use function view;
 
