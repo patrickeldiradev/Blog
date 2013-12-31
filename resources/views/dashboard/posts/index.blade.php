@@ -3,9 +3,17 @@
 @section('content')
 
     <div class="container">
-        <h2>
-            posts:
-        </h2>
+        <div class="row">
+            <h2 class="col-md-8">
+                posts:
+            </h2>
+            <h2 class="col-md-4">
+                <a class="btn btn-success pull-right" href="{{ route('dashboard.post.create') }}">Create new</a>
+            </h2>
+        </div>
+
+        @include('dashboard.partials.messages')
+
         <table class="table">
             <thead>
                 <tr>

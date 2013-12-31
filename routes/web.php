@@ -24,10 +24,12 @@ Route::group([
 Route::group([
     'namespace' => 'App\Http\Controllers\Dashboard',
     'prefix' => 'dashboard',
-    'as' => 'Dashboard.',
+    'as' => 'dashboard.',
     'middleware' => ['auth', 'verified'],
 ], function () {
     Route::get('/', 'PostController@index')->name('post.index');
+    Route::post('/', 'PostController@store')->name('post.store');
+    Route::get('/create', 'PostController@create')->name('post.create');
 });
 
 require __DIR__ . '/auth.php';
