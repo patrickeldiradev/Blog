@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\EntityManager\PostEntityManager;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Posts\StorePostRequest;
+use App\Jobs\ProcessStorePost;
 use App\Repository\PostRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
@@ -19,14 +20,11 @@ class PostController extends Controller
     public PostRepository $postRepository;
 
     /**
-     * @var PostEntityManager
+     * @param PostRepository $repository
      */
-    public PostEntityManager $postEntityManager;
-
-    public function __construct(PostRepository $repository, PostEntityManager $postEntityManager)
+    public function __construct(PostRepository $repository)
     {
         $this->postRepository = $repository;
-        $this->postEntityManager = $postEntityManager;
     }
 
     /**
@@ -61,9 +59,10 @@ class PostController extends Controller
      */
     public function store(StorePostRequest $request): RedirectResponse
     {
-        $this->postEntityManager->create($request->getRequestDataTransfer());
+        ProcessStorePost::dispatch($request->getRequestDataTransfer());
+
         return redirect(route('dashboard.post.index'))->with([
-            'success_message' => __('Created Successfully')
+            'success_message' => __('Your new post is processing.')
         ]);
     }
 }
