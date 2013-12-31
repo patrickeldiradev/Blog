@@ -42,7 +42,7 @@ class PostController extends Controller
      */
     public function show(int $postId)
     {
-        $post = Cache::remember(getCurrentHashedUrl(), 600, function () use($postId) {
+        $post = Cache::remember(getCurrentHashedUrl(), 600, function () use ($postId) {
             return $this->postRepository->getPostById($postId);
         });
 
