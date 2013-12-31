@@ -5,7 +5,6 @@ namespace App\Services;
 use App\Mapper\PostMapper;
 use Carbon\Carbon;
 use Illuminate\Http\Client\Response;
-use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Http;
 
 class PostSQService
