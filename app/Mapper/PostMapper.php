@@ -33,12 +33,11 @@ class PostMapper extends Mapper
             $transfer->setDescription($this->data['description']);
         }
 
-        if (isset($this->data['brief'])) {
+        if (isset($this->data['brief']) && isset($this->data['description'])) {
             $transfer->setBrief(
                 Str::limit($this->data['description'], $limit = 30, $end = '...')
             );
         }
-
 
         if (isset($this->data['publication_date'])) {
             $transfer->setPublicationDate($this->data['publication_date']);

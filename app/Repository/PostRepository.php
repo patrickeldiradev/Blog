@@ -16,7 +16,7 @@ class PostRepository
      */
     public function getPostById(int $id): PostTransfer
     {
-        $postModel =  Post::findOrfail($id);
+        $postModel =  Post::select(['title', 'description', 'user_id', 'publication_date'])->findOrfail($id);
         $postMapper = new PostMapper([
             'id' => $postModel->id,
             'title' => $postModel->title,
@@ -44,6 +44,7 @@ class PostRepository
                 \App\QueryPipelines\PublicationDateSort::class,
             ])
             ->thenReturn()
+            ->select(['id', 'title', 'description', 'user_id', 'publication_date'])
             ->paginate();
 
         return $this->mapToCollectionTransfer(
