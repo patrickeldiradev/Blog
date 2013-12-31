@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Site;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\Posts\IndexPostsRequest;
 use App\Repository\PostRepository;
-use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Support\Facades\Cache;
-
-use Illuminate\Support\Facades\Request;
 
 use function view;
 
