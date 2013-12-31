@@ -3,6 +3,9 @@
 @section('content')
 
     <div class="container">
+
+        @include('site.posts.partials.filter')
+
         @foreach($posts as $post)
             <div class="card" style="width: 18rem;">
                 <div class="card-body">

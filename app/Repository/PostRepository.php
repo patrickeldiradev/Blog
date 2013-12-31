@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\DTO\PostTransfer;
 use App\Mapper\PostMapper;
 use App\Models\Post;
+use Illuminate\Pipeline\Pipeline;
 use Illuminate\Support\Collection;
 
 class PostRepository
@@ -37,7 +38,13 @@ class PostRepository
      */
     public function paginatedPosts(): Collection
     {
-        $postsPaginator =  Post::paginate();
+        $postsPaginator =  app(Pipeline::class)
+            ->send(Post::query())
+            ->through([
+                \App\QueryPipelines\PublicationDateSort::class,
+            ])
+            ->thenReturn()
+            ->paginate();
 
         return $this->mapToCollectionTransfer(
             $postsPaginator->getCollection()

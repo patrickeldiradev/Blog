@@ -3,7 +3,11 @@
 namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Site\Posts\IndexPostsRequest;
+use App\Models\Post;
 use App\Repository\PostRepository;
+
+use Illuminate\Pipeline\Pipeline;
 
 use function view;
 
@@ -24,7 +28,7 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(IndexPostsRequest $request)
     {
         $posts = $this->postRepository->paginatedPosts();
 
