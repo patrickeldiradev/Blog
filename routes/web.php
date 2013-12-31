@@ -13,13 +13,21 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::group(['namespace' => 'App\Http\Controllers'], function () {
+Route::group([
+    'namespace' => 'App\Http\Controllers\Site',
+    'as' => 'site.',
+], function () {
     Route::get('/', 'PostController@index')->name('post.index');
     Route::get('/posts/{post}', 'PostController@show')->name('post.show');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::group([
+    'namespace' => 'App\Http\Controllers\Dashboard',
+    'prefix' => 'dashboard',
+    'as' => 'Dashboard.',
+    'middleware' => ['auth', 'verified'],
+], function () {
+    Route::get('/', 'PostController@index')->name('post.index');
+});
 
 require __DIR__ . '/auth.php';

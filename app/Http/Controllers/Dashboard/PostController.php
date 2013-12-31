@@ -1,9 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
 use App\Models\Post;
 use Illuminate\Http\Request;
+
+use function view;
 
 class PostController extends Controller
 {
@@ -14,9 +17,9 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = Post::where('user_id', auth()->id())->paginate();
 
-        return view('posts.index', compact('posts'));
+        return view('dashboard.posts.index', compact('posts'));
     }
 
     /**
@@ -26,7 +29,8 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        return view('posts.show', compact('post'));
+        return view('dashboard.posts.show', compact('post'));
     }
+
 
 }

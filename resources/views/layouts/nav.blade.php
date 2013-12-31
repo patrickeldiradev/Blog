@@ -1,11 +1,11 @@
 
 <nav class="navbar navbar-expand-lg bg-light">
     <div class="container">
-        <a class="navbar-brand" href="{{ route('post.index') }}">{{ __('Blog') }}</a>
+        <a class="navbar-brand" href="{{ route('site.post.index') }}">{{ __('Blog') }}</a>
         <div class="collapse navbar-collapse right" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="{{ route('post.index') }}">{{ __('Home') }}</a>
+                    <a class="nav-link active" aria-current="page" href="{{ route('site.post.index') }}">{{ __('Home') }}</a>
                 </li>
 
                 @if (Route::has('login'))

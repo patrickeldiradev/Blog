@@ -10,7 +10,7 @@
                     <p class="card-text">
                         {{ $post->brief }}
                     </p>
-                    <a href="{{ route('post.show', $post->id) }}" class="btn btn-primary">Read More</a>
+                    <a href="{{ route('site.post.show', $post->id) }}" class="btn btn-primary">Read More</a>
                 </div>
             </div>
         @endforeach
