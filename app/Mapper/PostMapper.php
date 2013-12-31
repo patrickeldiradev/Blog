@@ -45,10 +45,10 @@ class PostMapper extends Mapper
 
         if (isset($this->data['user'])) {
             $userMapper = new UserMapper([
-                    'id' => auth()->user()->id,
-                    'name' => auth()->user()->name,
-                    'email' => auth()->user()->email,
-                    'type' => auth()->user()->type,
+                    'id' => $this->data['user']['id'],
+                    'name' => $this->data['user']['name'],
+                    'email' =>$this->data['user']['email'],
+                    'type' => $this->data['user']['type'],
             ]);
             $transfer->setUserTransfer($userMapper->mapToTransfer());
         }
