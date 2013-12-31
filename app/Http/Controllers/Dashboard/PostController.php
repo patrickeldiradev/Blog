@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\EntityManager\PostEntityManager;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Posts\StorePostRequest;
 use App\Jobs\ProcessStorePost;

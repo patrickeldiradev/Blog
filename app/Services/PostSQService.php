@@ -15,8 +15,7 @@ class PostSQService
     const RETRY_TIMES = 3;
 
     /**
-     * @param string $symbol
-     * @return ?Collection
+     * @return array|null
      */
     public function fetch()
     {

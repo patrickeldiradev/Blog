@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Site\Posts\IndexPostsRequest;
 use App\Repository\PostRepository;
 
-use App\Services\PostSQService;
-
 use function view;
 
 class PostController extends Controller
