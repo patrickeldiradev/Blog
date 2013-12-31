@@ -31,7 +31,7 @@ class PostController extends Controller
      */
     public function index(IndexPostsRequest $request)
     {
-        $posts = Cache::remember($this->hashUrl(), 600, function () {
+        $posts = Cache::remember(getCurrentHashedUrl(), 600, function () {
             return $this->postRepository->paginatedPosts();
         });
 
@@ -45,25 +45,10 @@ class PostController extends Controller
      */
     public function show(int $postId)
     {
-        $post = Cache::remember($this->hashUrl(), 600, function () use($postId) {
+        $post = Cache::remember(getCurrentHashedUrl(), 600, function () use($postId) {
             return $this->postRepository->getPostById($postId);
         });
 
         return view('site.posts.show', compact('post'));
-    }
-
-    /**
-     * @param FormRequest $request
-     * @return string
-     */
-    protected function hashUrl(): string
-    {
-        $url = request()->url();
-        $queryParams = request()->query();
-        ksort($queryParams);
-        $queryString = http_build_query($queryParams);
-        $fullUrl = "{$url}?{$queryString}";
-
-        return sha1($fullUrl);
     }
 }
