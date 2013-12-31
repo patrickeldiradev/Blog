@@ -2,7 +2,7 @@
 
 namespace App\DTO;
 
-class UserTransfer
+class UserTransfer extends AbstractTransfer
 {
     /**
      * @var int

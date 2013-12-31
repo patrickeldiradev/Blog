@@ -4,12 +4,22 @@ namespace App\Http\Controllers\Site;
 
 use App\Http\Controllers\Controller;
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Repository\PostRepository;
 
 use function view;
 
 class PostController extends Controller
 {
+    /**
+     * @var PostRepository
+     */
+    public PostRepository $postRepository;
+
+    public function __construct(PostRepository $repository)
+    {
+        $this->postRepository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +27,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::paginate();
+        $posts = $this->postRepository->paginatedPosts();
 
         return view('site.posts.index', compact('posts'));
     }
@@ -27,8 +37,9 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(int $postId)
     {
+        $post = $this->postRepository->getPostById($postId);
         return view('site.posts.show', compact('post'));
     }
 }

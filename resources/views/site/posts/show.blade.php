@@ -2,15 +2,15 @@
 
 @section('content')
     <div class="container">
-        <h1 class="card-title">{{ $post->title }}</h1>
+        <h1 class="card-title">{{ $post->getTitle() }}</h1>
         <p class="card-text">
-            {{ $post->description }}
+            {{ $post->getDescription() }}
         </p>
         <div>
-            <b>Author:</b> {{ $post->user->name }}
+            <b>Author:</b> {{ $post->getUserTransfer()->getName() }}
         </div>
         <div>
-            <b>publish at:</b> {{ $post->publication_date }}
+            <b>publish at:</b> {{ $post->getPublicationDate() }}
         </div>
     </div>
 @endsection

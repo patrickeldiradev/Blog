@@ -25,15 +25,13 @@
             <tbody>
                 @foreach($posts as $post)
                     <tr>
-                        <th>{{ $post->id }}</th>
-                        <td>{{ $post->title }}</td>
-                        <td>{{ $post->description }}</td>
+                        <th>{{ $post->getId() }}</th>
+                        <td>{{ $post->getTitle() }}</td>
+                        <td>{{ $post->getDescription() }}</td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
-        {{ $posts->links() }}
     </div>
 
 @endsection

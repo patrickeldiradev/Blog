@@ -2,24 +2,53 @@
 
 namespace App\DTO;
 
-class PostTransfer
+class PostTransfer extends AbstractTransfer
 {
+    /**
+     * @var int
+     */
+    protected int $id;
+
     /**
      * @var string
      */
     protected string $title;
+
     /**
      * @var string
      */
     protected string $description;
+
+    /**
+     * @var string
+     */
+    protected string $brief;
+
     /**
      * @var string
      */
     protected string $publication_date;
+
     /**
      * @var UserTransfer
      */
     protected UserTransfer $userTransfer;
+
+    /**
+     * @return int
+     */
+    public function getId(): int
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId(int $id): void
+    {
+        $this->id = $id;
+    }
 
     /**
      * @return string
@@ -52,6 +81,24 @@ class PostTransfer
     {
         $this->description = $description;
     }
+
+
+    /**
+     * @return string
+     */
+    public function getBrief(): string
+    {
+        return $this->breif;
+    }
+
+    /**
+     * @param string $breif
+     */
+    public function setBrief(string $breif): void
+    {
+        $this->breif = $breif;
+    }
+
 
     /**
      * @return string
