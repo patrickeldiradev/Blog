@@ -17,10 +17,20 @@ docker run --rm \
     composer install --ignore-platform-reqs
  ```  
 
-- Add .env file with Rapid API service key **X_RAPID_API_KEY**.
+- Add .env file and generate key.
 ```bash  
 $ cp .env.example .env
+$ ./vendor/bin/sail php artisan key:generate
  ```  
+
+- Add database credentials to .env file.
+```bash  
+DB_DATABASE=
+DB_USERNAME=
+DB_PASSWORD=
+ ```  
+
+
 
 - Build and run docker.
 ```bash  
@@ -41,6 +51,15 @@ Using some tools to check code quality (Unit Test - Code Sniffer - Code analyzer
 ```bash  
 $ ./vendor/bin/sail php artisan test
 ```
+
+
+- [laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper).
+```bash  
+$ ./vendor/bin/sail php artisan ide-helper:generate
+$ ./vendor/bin/sail php artisan ide-helper:models
+$ ./vendor/bin/sail php artisan ide-helper:meta
+```
+
 - [PHP Code Sniffer](https://github.com/squizlabs/PHP_CodeSniffer).
 ```bash  
 $ ./vendor/bin/sail php ./vendor/bin/phpcs // Code sniffer check.
@@ -51,9 +70,3 @@ $ ./vendor/bin/sail php ./vendor/bin/phpcbf // Code sniffer Fix.
 $ ./vendor/bin/sail php ./vendor/bin/phpstan analyse -l 6 // Code analyzer.
 ```
 
-- [laravel-ide-helper](https://github.com/barryvdh/laravel-ide-helper).
-```bash  
-$ ./vendor/bin/sail php artisan ide-helper:generate
-$ ./vendor/bin/sail php artisan ide-helper:models
-$ ./vendor/bin/sail php artisan ide-helper:meta
-```
