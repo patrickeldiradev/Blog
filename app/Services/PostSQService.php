@@ -50,7 +50,6 @@ class PostSQService
     {
         $data  = [];
         foreach ($response as $item) {
-
             $date  = Carbon::create($item['publishedAt']);
             $mapper = new PostMapper([
                 'id' => $item['id'],

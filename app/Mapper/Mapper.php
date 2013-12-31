@@ -10,5 +10,4 @@ abstract class Mapper
      * @return AbstractTransfer
      */
     abstract public function mapToTransfer(): AbstractTransfer;
-
 }

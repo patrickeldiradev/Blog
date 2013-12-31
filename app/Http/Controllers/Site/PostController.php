@@ -40,6 +40,7 @@ class PostController extends Controller
     public function show(int $postId)
     {
         $post = $this->postRepository->getPostById($postId);
+
         return view('site.posts.show', compact('post'));
     }
 }

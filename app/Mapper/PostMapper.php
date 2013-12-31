@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 class PostMapper extends Mapper
 {
-    protected  array $data;
+    protected array $data;
 
     public function __construct(array $data)
     {
@@ -21,23 +21,28 @@ class PostMapper extends Mapper
     public function mapToTransfer(): AbstractTransfer
     {
         $transfer = new PostTransfer();
-        if (isset($this->data['id']))
+        if (isset($this->data['id'])) {
             $transfer->setId($this->data['id']);
+        }
 
-        if (isset($this->data['title']))
+        if (isset($this->data['title'])) {
             $transfer->setTitle($this->data['title']);
+        }
 
-        if (isset($this->data['description']))
+        if (isset($this->data['description'])) {
             $transfer->setDescription($this->data['description']);
+        }
 
-        if (isset($this->data['brief']))
+        if (isset($this->data['brief'])) {
             $transfer->setBrief(
                 Str::limit($this->data['description'], $limit = 30, $end = '...')
             );
+        }
 
 
-        if (isset($this->data['publication_date']))
+        if (isset($this->data['publication_date'])) {
             $transfer->setPublicationDate($this->data['publication_date']);
+        }
 
         if (isset($this->data['user'])) {
             $userMapper = new UserMapper([
